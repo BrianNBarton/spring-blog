@@ -1,4 +1,4 @@
-package com.codeup.blog.controllers;
+package com.codeup.demo.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

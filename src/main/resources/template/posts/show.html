@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pgTitle}"></title>
+    <links th:replace="partials/head :: head"></links>
+</head>
+<body>
+<div class="container">
+    <div class="card w-75">
+        <div class="card-body">
+            <div class="card-title" th:text="${newPost.title}"></div>
+            <div class="card-text" th:text="${newPost.body}"></div>
+        </div>
+    </div>
+</div>
+<!--okay why is there an error here-->
+<footer th:replace="partials/footer :: footer"></footer>
+<scripts th:replace="partials/scripts :: scripts"/>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.codeup.blog.models;
+package com.codeup.demo.models;
 public class Ad{
     String title;
     String description;
