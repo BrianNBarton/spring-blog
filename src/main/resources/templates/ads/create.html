@@ -20,6 +20,16 @@
         </form>
     </main>
 
+<form action="/ads/create" method="post">
+    Title:
+    <input name="title" />
+    <br />
+    Description:
+    <input name="description" />
+    <br />
+    <input type="submit" />
+</form>
+
     <footer th:replace="partials/footer :: footer"></footer>
     <div th:replace="partials/scripts :: scripts"/>
 </body>
