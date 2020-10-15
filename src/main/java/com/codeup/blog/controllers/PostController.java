@@ -4,7 +4,7 @@ import com.codeup.blog.models.Post;
 import com.codeup.blog.models.User;
 import com.codeup.blog.repositories.PostRepository;
 import com.codeup.blog.repositories.UserRepository;
-import com.codeup.blog.services.EmailService;
+import com.codeup.blog.services.EmailServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +18,9 @@ import java.util.List;
 public class PostController {
     private final PostRepository postRepo;
     private final UserRepository userRepo;
-    private final EmailService emailService;
+    private final EmailServices emailService;
 
-    public PostController(PostRepository postRepo, UserRepository userRepo, EmailService emailService) {
+    public PostController(PostRepository postRepo, UserRepository userRepo, EmailServices emailService) {
         this.postRepo = postRepo;
         this.userRepo = userRepo;
         this.emailService = emailService;
@@ -34,8 +34,8 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    public String showPost(@PathVariable Integer id, Model model) {
-        Post post = postRepo.getPostById(id);
+    public String showPost(@PathVariable Long id, Model model) {
+        Post post = postRepo.getOne(id);
         if (post.getUser() == null) {
             List <User> users = userRepo.findAll();
             post.setUser(users.get(0));
@@ -63,7 +63,7 @@ public class PostController {
 
         // Send email for an edit
         else {
-            post.setUser(postRepo.getPostById(post.getId()).getUser()); // Get the user from the database
+            post.setUser(postRepo.getOne(post.getId()).getUser()); // Get the user from the database
             emailService.prepareAndSend(post.getUser().getEmail(),
                     "Edited Post: " + post.getTitle(),
                     post.getTitle() + "\n\n" + post.getBody());
@@ -74,8 +74,8 @@ public class PostController {
 
     @GetMapping("/posts/delete/{id}")
     public String deleteAd(@PathVariable long id) {
-        Post post = postRepo.getPostById(id);
-        post.setUser(postRepo.getPostById(post.getId()).getUser()); // Get the user from the database
+        Post post = postRepo.getOne(id);
+        post.setUser(postRepo.getOne(post.getId()).getUser()); // Get the user from the database
 
         // send email for a post delete
         emailService.prepareAndSend(post.getUser().getEmail(),
@@ -87,7 +87,7 @@ public class PostController {
 
     @GetMapping("/posts/edit/{id}")
     public String editAd(@PathVariable long id, Model model) {
-        Post post = postRepo.getPostById(id);
+        Post post = postRepo.getOne(id);
         model.addAttribute("post", post);
         return "posts/create";
     }

@@ -6,7 +6,8 @@ import com.codeup.blog.models.AdCategory;
 import com.codeup.blog.models.User;
 import com.codeup.blog.repositories.AdRepository;
 import com.codeup.blog.repositories.UserRepository;
-import com.codeup.blog.services.EmailService;
+import com.codeup.blog.services.EmailServices;
+import com.codeup.blog.services.EmailServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +18,12 @@ import java.util.ArrayList;
 public class AdController {
     private final AdRepository adRepo;
     private final UserRepository userRepo;
-    private final EmailService emailService;
+    private final EmailServices emailService;
 
-    public AdController(AdRepository adRepo, UserRepository userRepo, EmailService emailService) {
+    public AdController(AdRepository adRepo, UserRepository userRepo, EmailServices emailServices) {
         this.adRepo = adRepo;
         this.userRepo = userRepo;
-        this.emailService = emailService;
+        this.emailService = emailServices;
     }
 
     @RequestMapping(path = "/ads", method = RequestMethod.GET)

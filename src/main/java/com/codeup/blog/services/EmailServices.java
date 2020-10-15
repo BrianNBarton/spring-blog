@@ -2,17 +2,18 @@ package com.codeup.blog.services;
 
 import com.codeup.blog.models.Ad;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service("mailService")
-public class EmailService {
+public class EmailServices {
 
     @Autowired
     public JavaMailSender emailSender;
-
+//
 //    @Value("${spring.mail.from}")
 //    private String from;
 
@@ -27,10 +28,10 @@ public class EmailService {
 }
 
 class RunnableEmail implements Runnable {
-    private EmailService emailService;
+    private EmailServices emailService;
     private SimpleMailMessage msg;
 
-    public RunnableEmail(EmailService emailService, SimpleMailMessage msg) {
+    public RunnableEmail(EmailServices emailService, SimpleMailMessage msg) {
         this.emailService = emailService;
         this.msg = msg;
     }
